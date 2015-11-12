@@ -1,10 +1,14 @@
 import os.path
-import message
-import client
-import parsers
+import json
+from parsers import parsers
+from time import sleep
+from message import *
+from client import *
 
-if os.path.isfile("settings.py"):
-    import settings
+settingFilePath = 'settings.json'
+if os.path.isfile(settingFilePath):
+    with open(settingFilePath) as rawSettings:
+        settings = json.load(rawSettings)
 else:
     import os
     settings = {
@@ -12,15 +16,27 @@ else:
         'username': os.environ['SLACK_USERNAME'],
         'channel': os.environ['SLACK_CHANNEL'],
         'icon_emoji': os.environ['SLACK_ICON_EMOJI'],
-        'icon_url': os.environ['SLACK_ICON_URL']
+        'icon_url': os.environ['SLACK_ICON_URL'],
+        'parser_name': os.environ['PARSER_NAME']
     }
 
 message = Message()
-message.text(parsers.getTopBreakingMadNews())
-message.username(settings['username'])
-message.channel(settings['channel'])
-message.icon_emoji(settings['icon_emoji'])
-message.icon_url(settings['icon_url'])
+
+if 'username' in settings:
+    message.username = settings['username']
+if 'channel' in settings:
+    message.channel = settings['channel']
+if 'icon_emoji' in settings:
+    message.icon_emoji = settings['icon_emoji']
+if 'icon_url' in settings:
+    message.icon_url = settings['icon_url']
 
 client = Client(settings['webHookUrl'])
+# sleep(60*60*1)
+if 'parser_name' not in settings:
+    settings['parser_name'] = 'default'
+if settings['parser_name'] not in parsers:
+    raise ValueError('Not found parser with name %s' % settings['parser_name'])
+
+message.text = parsers[settings['parser_name']]()
 client.notify(message)

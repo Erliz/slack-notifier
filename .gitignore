@@ -1,1 +1,8 @@
-/slack-notifier/settings.py
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Project
+/slack-notifier/settings.json
+/slack-notifier/bashorg_comics_log.json

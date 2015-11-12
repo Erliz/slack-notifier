@@ -1,5 +1,5 @@
 import requests
-import message
+from message import *
 
 class Client(object):
     """docstring for Client"""
@@ -8,8 +8,11 @@ class Client(object):
         self._debug = debug
 
     def notify(self, message):
-        instanceof(message, Message)
+        isinstance(message, Message)
+        if not message.text or not len(message.text):
+            raise ValueError('Message text is empty')
+        jsonMessage = message.to_JSON()
         if not self._debug:
-            requests.post(self._url, None, message.to_JSON())
-        else:
-            print("Sending: " + message.to_JSON() + "\n"))
+            response = requests.post(self._url, data=jsonMessage)
+            print(response.text)
+        print("Sending to url:" + self._url + "\nPayload: " + jsonMessage + "\n")
