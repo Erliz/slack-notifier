@@ -4,5 +4,6 @@
     "channel": "Channel name to post message like #general",
     "icon_emoji": "Message avatar icon like :ant:"
     "icon_url": "Or url to avatar image",
+    "parser_name": "bashorg_comics",
     "repeat_delay_sec": "Integer of repeat parser delay in second"
 }
