@@ -17,7 +17,8 @@ else:
         'channel': os.environ['SLACK_CHANNEL'],
         'icon_emoji': os.environ['SLACK_ICON_EMOJI'],
         'icon_url': os.environ['SLACK_ICON_URL'],
-        'parser_name': os.environ['PARSER_NAME']
+        'parser_name': os.environ['PARSER_NAME'],
+        'repeat_delay_sec': os.environ['REPEAT_DELAY_SEC']
     }
 
 message = Message()
@@ -38,5 +39,10 @@ if 'parser_name' not in settings:
 if settings['parser_name'] not in parsers:
     raise ValueError('Not found parser with name %s' % settings['parser_name'])
 
-message.text = parsers[settings['parser_name']]()
-client.notify(message)
+while True:
+    message.text = parsers[settings['parser_name']]()
+    client.notify(message)
+    if 'repeat_delay_sec' in settings and settings['repeat_delay_sec'] > 0:
+        sleep(settings['repeat_delay_sec'])
+    else:
+        break

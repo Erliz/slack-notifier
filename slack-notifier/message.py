@@ -56,9 +56,7 @@ class Message(object):
             for key, val in o.__dict__.items():
                 if val and len(val):
                     jsonDict[key[1:]] = o.__dict__.get(key)
-            print(jsonDict)
             return jsonDict
-        print(self.__dict__)
         return json.dumps(
             self,
             default = default,

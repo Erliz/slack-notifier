@@ -6,3 +6,5 @@ __pycache__/
 # Project
 /slack-notifier/settings.json
 /slack-notifier/bashorg_comics_log.json
+!/slack-notifier/logs/.gitkeep
+/slack-notifier/logs/

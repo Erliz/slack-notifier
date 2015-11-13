@@ -72,7 +72,7 @@ def bashorg_comics():
     import json
     from time import sleep
 
-    logPath = 'bashorg_comics_log.json'
+    logPath = 'logs/bashorg_comics_log.json'
     if os.path.isfile(logPath):
         with open(logPath) as logHandler:
             log = json.load(logHandler)

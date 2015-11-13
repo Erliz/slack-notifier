@@ -2,9 +2,9 @@ FROM python:3
 
 RUN pip install requests lxml python-dateutil
 
-VOLUME ["/app"]
+VOLUME ["/app", "/app/logs"]
 
-ADD slack-notifier/* /app/
+ADD slack-notifier/ /app/
 
 WORKDIR /app
 

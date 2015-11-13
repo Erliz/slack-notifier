@@ -1,1 +1,17 @@
-/slack-notifier/settings.json
+# Default
+.git
+.gitignore
+LICENSE
+VERSION
+README.md
+Changelog.md
+Makefile
+docker-compose.yml
+
+# Byte-compiled / optimized / DLL files
+slack-notifier/__pycache__
+*.py[cod]
+*$py.class
+
+# Project
+slack-notifier/settings.json
